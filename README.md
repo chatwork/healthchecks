@@ -1,5 +1,5 @@
 # healthchecks
-[![CircleCI](https://circleci.com/gh/chatwork/healthcheck.svg?style=svg)](https://circleci.com/gh/chatwork/healthcheck)
+[![CircleCI](https://circleci.com/gh/chatwork/healthchecks.svg?style=svg)](https://circleci.com/gh/chatwork/healthchecks)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 tiny healthcheck library for akka-http with [Kubernetes liveness/readiness probe][k8sprobe] support.
@@ -12,7 +12,7 @@ Current version: `0.5.0`
 libraryDependencies += "com.chatwork" %% "healthchecks-core" % <version>
   
 // when you want kubernetes liveness/readiness probe support.
-libraryDependencies += "com.github.chatwork" %% "healthchecks-k8s-probes" % <version>
+libraryDependencies += "com.chatwork" %% "healthchecks-k8s-probes" % <version>
 ```
 
 ## Getting Started
