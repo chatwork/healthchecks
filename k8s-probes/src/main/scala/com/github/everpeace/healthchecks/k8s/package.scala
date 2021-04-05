@@ -61,8 +61,7 @@ package object k8s {
       probe: K8sProbe,
       probes: K8sProbe*
   )(implicit
-      system: ActorSystem,
-      am: ActorMaterializer
+      system: ActorSystem
   ): Future[Http.ServerBinding] = {
     val host   = config(system).getString("host")
     val port   = config(system).getInt("port")
