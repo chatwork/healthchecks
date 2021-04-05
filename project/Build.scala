@@ -37,9 +37,24 @@ object Build extends AutoPlugin {
       "-deprecation",
       "-language:_",
       "-encoding", "UTF-8",
-      "-Ywarn-unused-import",
-      "-Ypartial-unification"
-    ),
+    ) ++{
+      CrossVersion.partialVersion(scalaVersion.value) match {
+        case Some((2, n)) if n <= 12 =>
+          Seq(
+            "-Ywarn-unused",
+            "-Ywarn-unused-import",
+            "-Ywarn-adapted-args",
+            "-Ywarn-inaccessible",
+            "-Ywarn-infer-any",
+            "-Ywarn-nullary-override",
+            "-Ywarn-nullary-unit"
+          )
+        case _ =>
+          Seq(
+            "-Ymacro-annotations"
+          )
+      }
+    },
 
     libraryDependencies ++= Def.setting(CrossVersion.partialVersion(scalaVersion.value) match {
       case Some((2, 12)) =>
