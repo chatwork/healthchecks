@@ -13,6 +13,7 @@ object Build extends AutoPlugin {
 
   override def projectSettings = Vector(
     // Core settings
+    publishTo := sonatypePublishToBundle.value,
     sonatypeProfileName := "com.chatwork",
     organization := "com.chatwork",
     organizationName := "Chatwork Co., Ltd.",

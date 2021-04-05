@@ -1,8 +1,6 @@
 import sbtrelease._
 import sbtrelease.ReleasePlugin.autoImport.ReleaseTransformations._
 
-publishTo := sonatypePublishToBundle.value
-
 releaseProcess := Seq[ReleaseStep](
   releaseStepCommand("headerCheck"),
   checkSnapshotDependencies, // : ReleaseStep
