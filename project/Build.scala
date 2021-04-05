@@ -1,9 +1,10 @@
 import de.heikoseeberger.sbtheader.HeaderPlugin
 import de.heikoseeberger.sbtheader.HeaderPlugin.autoImport._
 import sbtrelease.ReleasePlugin.autoImport._
-import sbt.Keys.{organization, _}
-import sbt.{AutoPlugin, Credentials, _}
+import sbt.Keys._
+import sbt._
 import sbt.plugins.JvmPlugin
+import xerial.sbt.Sonatype.autoImport._
 
 object Build extends AutoPlugin {
   override def requires = JvmPlugin && HeaderPlugin
