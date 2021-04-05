@@ -2,9 +2,8 @@ import de.heikoseeberger.sbtheader.HeaderPlugin
 import de.heikoseeberger.sbtheader.HeaderPlugin.autoImport._
 import sbtrelease.ReleasePlugin.autoImport._
 import sbt.Keys.{organization, _}
-import sbt.{AutoPlugin, _}
+import sbt.{AutoPlugin, Credentials, _}
 import sbt.plugins.JvmPlugin
-import xerial.sbt.Sonatype.autoImport._
 
 object Build extends AutoPlugin {
   override def requires = JvmPlugin && HeaderPlugin
@@ -14,6 +13,11 @@ object Build extends AutoPlugin {
   override def projectSettings = Vector(
     // Core settings
     publishTo := sonatypePublishToBundle.value,
+    credentials := {
+      val ivyCredentials = (baseDirectory in LocalRootProject).value / ".credentials"
+      val gpgCredentials = (baseDirectory in LocalRootProject).value / ".gpgCredentials"
+      Credentials(ivyCredentials) :: Credentials(gpgCredentials) :: Nil
+    },
     sonatypeProfileName := "com.chatwork",
     organization := "com.chatwork",
     organizationName := "Chatwork Co., Ltd.",
