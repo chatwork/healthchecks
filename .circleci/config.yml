@@ -5,7 +5,7 @@ workflows:
      jobs:
        - scala:
            name: Scala 2.12.x
-           scala_version: 2.12.6
+           scala_version: 2.12.13
        - scala:
            name: Scala 2.13.x
            scala_version: 2.13.5
