@@ -1,6 +1,8 @@
 lazy val root = project
   .in(file("."))
   .settings(
+    publish / skip := true,
+    publishArtifact := false,
     publishLocal := {},
     publish := {}
   )
