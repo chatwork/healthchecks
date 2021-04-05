@@ -1,15 +1,11 @@
 import sbt._
 
 object Version {
-  val Scala = Seq("2.11.12", "2.12.6", "2.13.5")
-  val circe = "0.9.3"
+  val Scala = Seq("2.12.6", "2.13.5")
+  val circe = "0.13.0"
   val akka = "2.5.16"
   val akkaHttp = "10.1.14"
-  val akkaHttpCirce = scalaBinaryVersion.value match {
-    case "2.11" => "1.27.0"
-    case "2.12" => "1.36.0"
-    case "2.12" => "1.36.0"
-  }
+  val akkaHttpCirce = "1.36.0"
   val cats = "1.2.0"
   val scalaTest = "3.0.5"
   val paradise = "2.1.0"
