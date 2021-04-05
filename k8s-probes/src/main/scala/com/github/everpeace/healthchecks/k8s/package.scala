@@ -61,14 +61,15 @@ package object k8s {
       probe: K8sProbe,
       probes: K8sProbe*
   )(implicit
-      system: ActorSystem,
-      am: ActorMaterializer
+      system: ActorSystem
   ): Future[Http.ServerBinding] = {
     val host   = config(system).getString("host")
     val port   = config(system).getInt("port")
     val routes = (probe +: probes).toList
       .map(_.toRoute)
       .reduce((r1: Route, r2: Route) => r1 ~ r2)
-    Http(system).bindAndHandle(routes, host, port)
+    Http(system)
+      .newServerAt(host, port)
+      .bindFlow(routes)
   }
 }

@@ -37,13 +37,31 @@ object Build extends AutoPlugin {
       "-deprecation",
       "-language:_",
       "-encoding", "UTF-8",
-      "-Ywarn-unused-import",
-      "-Ypartial-unification"
-    ),
-    // macro compiler plugin
-    addCompilerPlugin(
-      "org.scalamacros" % "paradise" % Version.paradise cross CrossVersion.full
-    ),
+    ) ++{
+      CrossVersion.partialVersion(scalaVersion.value) match {
+        case Some((2, n)) if n <= 12 =>
+          Seq(
+            "-Ywarn-unused",
+            "-Ywarn-unused-import",
+            "-Ywarn-adapted-args",
+            "-Ywarn-inaccessible",
+            "-Ywarn-infer-any",
+            "-Ywarn-nullary-override",
+            "-Ywarn-nullary-unit"
+          )
+        case _ =>
+          Seq(
+            "-Ymacro-annotations"
+          )
+      }
+    },
+
+    libraryDependencies ++= Def.setting(CrossVersion.partialVersion(scalaVersion.value) match {
+      case Some((2, 12)) =>
+        Seq(compilerPlugin(("org.scalamacros" % "paradise" % Version.paradise).cross(CrossVersion.patch)))
+      case _                              =>
+        Nil
+    }).value,
 
     releaseCrossBuild := true,
     releaseVersionBump := sbtrelease.Version.Bump.Next

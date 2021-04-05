@@ -1,14 +1,14 @@
 import sbt._
 
 object Version {
-  val Scala = Seq("2.11.12", "2.12.6")
-  val circe = "0.9.3"
-  val akka = "2.5.16"
-  val akkaHttp = "10.1.4"
-  val akkaHttpCirce = "1.21.0"
-  val cats = "1.2.0"
-  val scalaTest = "3.0.5"
-  val paradise = "2.1.0"
+  val Scala = Seq("2.12.13", "2.13.5")
+  val circe = "0.13.0"
+  val akka = "2.5.32"
+  val akkaHttp = "10.2.4"
+  val akkaHttpCirce = "1.36.0"
+  val cats = "2.1.0"
+  val scalaTest = "3.1.0"
+  val paradise = "2.1.1"
 }
 
 object Dependencies {
@@ -19,8 +19,12 @@ object Dependencies {
   }
 
   object akka {
+    val actor = "com.typesafe.akka" %% "akka-actor" % Version.akka
+    val stream = "com.typesafe.akka" %% "akka-stream" % Version.akka
     val http = "com.typesafe.akka" %% "akka-http" % Version.akkaHttp
     val httpCirce = "de.heikoseeberger" %% "akka-http-circe" % Version.akkaHttpCirce
+    val testkit = "com.typesafe.akka" %% "akka-testkit" % Version.akka
+    val streamTestkit = "com.typesafe.akka" %% "akka-stream-testkit" % Version.akka
     val httpTestKit = "com.typesafe.akka" %% "akka-http-testkit" % Version.akkaHttp
   }
 

@@ -39,10 +39,9 @@ import io.circe.JsonObject
 import io.circe.generic.JsonCodec
 import io.circe.generic.auto._
 
-import scala.collection.convert.DecorateAsScala
 import scala.concurrent.{ExecutionContext, Future}
 
-object HealthCheckRoutes extends DecorateAsScala {
+object HealthCheckRoutes {
 
   @JsonCodec case class HealthCheckResultJson(
       name: String,
@@ -88,7 +87,7 @@ object HealthCheckRoutes extends DecorateAsScala {
     val rootSlashRemoved =
       if (path.startsWith("/")) path.substring(1) else path
     PathDirectives.path(PathMatchers.separateOnSlashes(rootSlashRemoved)) {
-      parameter("full" ? false) { full =>
+      parameter("full".withDefault(false)) { full =>
         get {
           def isHealthy(checkAndResults: List[(HealthCheck, HealthCheckResult)]) =
             checkAndResults.forall(cr => cr._2.isValid || (!cr._1.severity.isFatal))
