@@ -12,7 +12,7 @@ Current version: `0.5.0`
 libraryDependencies += "com.chatwork" %% "healthchecks-core" % <version>
   
 // when you want kubernetes liveness/readiness probe support.
-libraryDependencies += "com.github.chatwork" %% "healthchecks-k8s-probes" % <version>
+libraryDependencies += "com.chatwork" %% "healthchecks-k8s-probes" % <version>
 ```
 
 ## Getting Started
