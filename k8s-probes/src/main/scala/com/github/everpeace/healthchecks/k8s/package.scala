@@ -69,6 +69,8 @@ package object k8s {
     val routes = (probe +: probes).toList
       .map(_.toRoute)
       .reduce((r1: Route, r2: Route) => r1 ~ r2)
-    Http(system).bindAndHandle(routes, host, port)
+    Http(system)
+      .newServerAt(host, port)
+      .bindFlow(routes)
   }
 }
