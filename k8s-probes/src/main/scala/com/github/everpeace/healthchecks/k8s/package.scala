@@ -41,31 +41,31 @@ package object k8s {
 
   def livenessProbe(
       checks: HealthCheck*
-    )(implicit
+  )(implicit
       system: ActorSystem,
       ec: ExecutionContext
-    ) = {
+  ) = {
     LivenessProbe(checks.toList, config(system, "path").getString("liveness"), ec)
   }
 
   def readinessProbe(
       checks: HealthCheck*
-    )(implicit
+  )(implicit
       system: ActorSystem,
       ec: ExecutionContext
-    ) = {
+  ) = {
     ReadinessProbe(checks.toList, config(system, "path").getString("readiness"), ec)
   }
 
   def bindAndHandleProbes(
       probe: K8sProbe,
       probes: K8sProbe*
-    )(implicit
+  )(implicit
       system: ActorSystem,
       am: ActorMaterializer
-    ): Future[Http.ServerBinding] = {
-    val host = config(system).getString("host")
-    val port = config(system).getInt("port")
+  ): Future[Http.ServerBinding] = {
+    val host   = config(system).getString("host")
+    val port   = config(system).getInt("port")
     val routes = (probe +: probes).toList
       .map(_.toRoute)
       .reduce((r1: Route, r2: Route) => r1 ~ r2)

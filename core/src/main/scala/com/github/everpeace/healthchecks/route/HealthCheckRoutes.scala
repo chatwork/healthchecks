@@ -48,7 +48,8 @@ object HealthCheckRoutes extends DecorateAsScala {
       name: String,
       severity: String,
       status: String,
-      messages: List[String])
+      messages: List[String]
+  )
 
   @JsonCodec case class ResponseJson(status: String, check_results: List[HealthCheckResultJson])
 
@@ -69,16 +70,16 @@ object HealthCheckRoutes extends DecorateAsScala {
 
   def health(
       checks: HealthCheck*
-    )(implicit
+  )(implicit
       ec: ExecutionContext
-    ): Route = health("health", checks.toList)
+  ): Route = health("health", checks.toList)
 
   def health(
       path: String,
       checks: List[HealthCheck]
-    )(implicit
+  )(implicit
       ec: ExecutionContext
-    ): Route = {
+  ): Route = {
     require(checks.nonEmpty, "checks must not empty.")
     require(
       checks.map(_.name).toSet.size == checks.length,
@@ -91,7 +92,7 @@ object HealthCheckRoutes extends DecorateAsScala {
         get {
           def isHealthy(checkAndResults: List[(HealthCheck, HealthCheckResult)]) =
             checkAndResults.forall(cr => cr._2.isValid || (!cr._1.severity.isFatal))
-          val checkAndResultsFuture = Future.traverse(checks) { c =>
+          val checkAndResultsFuture                                              = Future.traverse(checks) { c =>
             c.run().map(c -> _)
           }
           if (full) {
@@ -100,8 +101,8 @@ object HealthCheckRoutes extends DecorateAsScala {
                 val healthy = isHealthy(checkAndResults)
                 statusCode(healthy) -> ResponseJson(
                   status(healthy),
-                  checkAndResults.map {
-                    case (check, result) => toResultJson(check, result)
+                  checkAndResults.map { case (check, result) =>
+                    toResultJson(check, result)
                   }
                 )
               }

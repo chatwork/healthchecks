@@ -1,6 +1,3 @@
-import bintray.BintrayPlugin
-import bintray.BintrayPlugin.autoImport._
-import com.lucidchart.sbt.scalafmt.ScalafmtCorePlugin.autoImport._
 import de.heikoseeberger.sbtheader.HeaderPlugin
 import de.heikoseeberger.sbtheader.HeaderPlugin.autoImport._
 import sbtrelease.ReleasePlugin.autoImport._
@@ -9,7 +6,7 @@ import sbt.{AutoPlugin, _}
 import sbt.plugins.JvmPlugin
 
 object Build extends AutoPlugin {
-  override def requires = JvmPlugin && HeaderPlugin && BintrayPlugin
+  override def requires = JvmPlugin && HeaderPlugin
 
   override def trigger = allRequirements
 
@@ -44,20 +41,12 @@ object Build extends AutoPlugin {
       "-Ypartial-unification"
     ),
 
-    // Scalafmt setting
-    scalafmtOnCompile := true,
-    scalafmtTestOnCompile := true,
-
     libraryDependencies ++= Def.setting(CrossVersion.partialVersion(scalaVersion.value) match {
       case Some((2, 12)) =>
         Seq(compilerPlugin(("org.scalamacros" % "paradise" % Version.paradise).cross(CrossVersion.patch)))
       case _                              =>
         Nil
     }).value,
-
-    // Bintray settings
-    bintrayPackage := "healthchecks",
-    bintrayRepository := "maven",
 
     releaseCrossBuild := true,
     releaseVersionBump := sbtrelease.Version.Bump.Next
