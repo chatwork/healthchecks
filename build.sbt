@@ -1,6 +1,7 @@
 lazy val root = project
   .in(file("."))
   .settings(
+    name := "healthchecks",
     publish / skip := true,
     publishArtifact := false,
     publishLocal := {},
