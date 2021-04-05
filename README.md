@@ -1,20 +1,20 @@
 # healthchecks
+<!--
 [![Build Status](https://travis-ci.org/everpeace/healthchecks.svg?branch=master)](https://travis-ci.org/everpeace/healthchecks)
-[![Download](https://api.bintray.com/packages/everpeace/maven/healthchecks/images/download.svg)](https://bintray.com/everpeace/maven/healthchecks/_latestVersion)
+-->
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 tiny healthcheck library for akka-http with [Kubernetes liveness/readiness probe][k8sprobe] support.
 
 ## Installation
-You need to activate [sbt-bintray](https://github.com/sbt/sbt-bintray) plugin first. And then, You will add it to your build by including these lines in your sbt file.  Please refer to download badge above for the latest version.
+
+WIP: Not pulibhsed yet
 
 ```scala
-resolvers += Resolver.bintrayRepo("everpeace","maven")
-  
-libraryDependencies += "com.github.everpeace" %% "healthchecks-core" % <version>
+libraryDependencies += "com.chatwork" %% "healthchecks-core" % <version>
   
 // when you want kubernetes liveness/readiness probe support.
-libraryDependencies += "com.github.everpeace" %% "healthchecks-k8s-probes" % <version>
+libraryDependencies += "com.github.chatwork" %% "healthchecks-k8s-probes" % <version>
 ```
 
 ## Getting Started

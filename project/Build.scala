@@ -1,5 +1,3 @@
-import bintray.BintrayPlugin
-import bintray.BintrayPlugin.autoImport._
 import com.lucidchart.sbt.scalafmt.ScalafmtCorePlugin.autoImport._
 import de.heikoseeberger.sbtheader.HeaderPlugin
 import de.heikoseeberger.sbtheader.HeaderPlugin.autoImport._
@@ -9,7 +7,7 @@ import sbt.{AutoPlugin, _}
 import sbt.plugins.JvmPlugin
 
 object Build extends AutoPlugin {
-  override def requires = JvmPlugin && HeaderPlugin && BintrayPlugin
+  override def requires = JvmPlugin && HeaderPlugin
 
   override def trigger = allRequirements
 
@@ -52,10 +50,6 @@ object Build extends AutoPlugin {
     addCompilerPlugin(
       "org.scalamacros" % "paradise" % Version.paradise cross CrossVersion.full
     ),
-
-    // Bintray settings
-    bintrayPackage := "healthchecks",
-    bintrayRepository := "maven",
 
     releaseCrossBuild := true,
     releaseVersionBump := sbtrelease.Version.Bump.Next
