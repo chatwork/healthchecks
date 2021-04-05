@@ -45,14 +45,12 @@ package object healthchecks {
   def healthCheck(
       name: String,
       severity: Severity = Severity.Fatal
-    )(c: => HealthCheckResult
-    ): HealthCheck =
+  )(c: => HealthCheckResult): HealthCheck =
     new HealthCheck(name, Future.fromTry(Try(c)), severity)
 
   def asyncHealthCheck(
       name: String,
       severity: Severity = Severity.Fatal
-    )(c: => Future[HealthCheckResult]
-    ): HealthCheck =
+  )(c: => Future[HealthCheckResult]): HealthCheck =
     new HealthCheck(name, c, severity)
 }

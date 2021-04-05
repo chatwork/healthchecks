@@ -29,7 +29,8 @@ import scala.concurrent.ExecutionContext
 sealed abstract class K8sProbe protected (
     val checks: List[HealthCheck],
     val path: String,
-    val ec: ExecutionContext) {
+    val ec: ExecutionContext
+) {
   require(checks.nonEmpty, "checks must not be empty.")
 
   def toRoute = HealthCheckRoutes.health(path, checks)(ec)
@@ -38,11 +39,11 @@ sealed abstract class K8sProbe protected (
 case class LivenessProbe protected (
     override val checks: List[HealthCheck],
     override val path: String,
-    override val ec: ExecutionContext)
-    extends K8sProbe(checks, path, ec)
+    override val ec: ExecutionContext
+) extends K8sProbe(checks, path, ec)
 
 case class ReadinessProbe protected (
     override val checks: List[HealthCheck],
     override val path: String,
-    override val ec: ExecutionContext)
-    extends K8sProbe(checks, path, ec)
+    override val ec: ExecutionContext
+) extends K8sProbe(checks, path, ec)

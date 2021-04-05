@@ -80,8 +80,9 @@ class HealthRoutesTest
     }
 
     it(
-      "should return correct healthy response when some healthchecks are unhealthy but those are all NonFatal.") {
-      val ok1 = healthCheck("test1")(healthy)
+      "should return correct healthy response when some healthchecks are unhealthy but those are all NonFatal."
+    ) {
+      val ok1               = healthCheck("test1")(healthy)
       val failedButNonFatal =
         healthCheck("test2", Severity.NonFatal)(unhealthy("error"))
 
@@ -106,18 +107,23 @@ class HealthRoutesTest
     }
 
     it(
-      "should return correct response when some of 'Fatal' healthchecks are unhealthy system with a fatal error") {
-      val ok = healthCheck("test1")(healthy)
+      "should return correct response when some of 'Fatal' healthchecks are unhealthy system with a fatal error"
+    ) {
+      val ok                = healthCheck("test1")(healthy)
       val failedButNonFatal =
         healthCheck("test2", Severity.NonFatal)(unhealthy("error"))
-      val failedFatal = healthCheck("test3")(throw new Exception("exception"))
+      val failedFatal       = healthCheck("test3")(throw new Exception("exception"))
 
       Get("/health") ~> HealthCheckRoutes.health(ok, failedButNonFatal, failedFatal) ~> check {
         status shouldEqual ServiceUnavailable
         responseAs[String] shouldEqual "{}"
       }
 
-      Get("/health?full=true") ~> HealthCheckRoutes.health(ok, failedButNonFatal, failedFatal) ~> check {
+      Get("/health?full=true") ~> HealthCheckRoutes.health(
+        ok,
+        failedButNonFatal,
+        failedFatal
+      ) ~> check {
         status shouldEqual ServiceUnavailable
         responseAs[String] shouldEqual
           """

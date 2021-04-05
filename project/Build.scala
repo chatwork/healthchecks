@@ -1,4 +1,3 @@
-import com.lucidchart.sbt.scalafmt.ScalafmtCorePlugin.autoImport._
 import de.heikoseeberger.sbtheader.HeaderPlugin
 import de.heikoseeberger.sbtheader.HeaderPlugin.autoImport._
 import sbtrelease.ReleasePlugin.autoImport._
@@ -41,11 +40,6 @@ object Build extends AutoPlugin {
       "-Ywarn-unused-import",
       "-Ypartial-unification"
     ),
-
-    // Scalafmt setting
-    scalafmtOnCompile := true,
-    scalafmtTestOnCompile := true,
-
     // macro compiler plugin
     addCompilerPlugin(
       "org.scalamacros" % "paradise" % Version.paradise cross CrossVersion.full
