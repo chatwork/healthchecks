@@ -13,7 +13,7 @@ workflows:
 jobs:
   scala:
     docker:
-      - image: circleci/openjdk:8-jdk-node
+      - image: circleci/openjdk:8-jdk
     environment:
       TERM: "dumb"
     parameters:
