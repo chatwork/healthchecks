@@ -35,8 +35,8 @@ import scala.concurrent.{ExecutionContext, Future}
 
 class HealthCheck(val name: String, check: => Future[HealthCheckResult], val severity: Severity) {
   def run()(implicit ec: ExecutionContext): Future[HealthCheckResult] = {
-    check.recover {
-      case t: Throwable => t.getMessage.invalidNel[Unit]
+    check.recover { case t: Throwable =>
+      t.getMessage.invalidNel[Unit]
     }
   }
 }

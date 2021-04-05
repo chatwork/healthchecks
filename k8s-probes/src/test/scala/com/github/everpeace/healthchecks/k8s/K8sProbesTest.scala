@@ -47,7 +47,7 @@ class K8sProbesTest extends FreeSpec with Matchers {
         livenessProbe(asyncHealthCheck("liveness_check")(Future(healthy)))
       )
 
-      def requestToLivenessProbe =
+      def requestToLivenessProbe  =
         Http().singleRequest(HttpRequest(uri = "http://localhost:8086/live"))
       def requestToReadinessProbe =
         Http().singleRequest(HttpRequest(uri = "http://localhost:8086/ready"))
