@@ -1,9 +1,10 @@
 import de.heikoseeberger.sbtheader.HeaderPlugin
 import de.heikoseeberger.sbtheader.HeaderPlugin.autoImport._
 import sbtrelease.ReleasePlugin.autoImport._
-import sbt.Keys._
+import sbt.Keys.{organization, _}
 import sbt.{AutoPlugin, _}
 import sbt.plugins.JvmPlugin
+import xerial.sbt.Sonatype.autoImport._
 
 object Build extends AutoPlugin {
   override def requires = JvmPlugin && HeaderPlugin
@@ -12,24 +13,18 @@ object Build extends AutoPlugin {
 
   override def projectSettings = Vector(
     // Core settings
-    organization := "com.github.everpeace",
-    organizationName := "Shingo Omura",
-    startYear := Some(2017),
+    sonatypeProfileName := "com.chatwork",
+    organization := "com.chatwork",
+    organizationName := "Chatwork Co., Ltd.",
+    startYear := Some(2021),
     licenses += ("MIT", url("https://opensource.org/licenses/MIT")),
-    headerLicense := Some(HeaderLicense.MIT("2017", "Shingo Omura")),
-    homepage := Some(url("https://github.com/everpeace/healthchecks")),
+    headerLicense := Some(HeaderLicense.MIT("2021", "Chatwork Co., Ltd.")),
+    homepage := Some(url("https://github.com/chatwork/healthchecks")),
     pomIncludeRepository := (_ => false),
     pomExtra := <scm>
-      <url>https://github.com/everpeace/healthchecks</url>
-      <connection>scm:git:git@github.com:everpeace/healthchecks</connection>
-    </scm>
-      <developers>
-        <developer>
-          <id>everpeace</id>
-          <name>Shingo Omura</name>
-          <url>http://everpeace.github.io/</url>
-        </developer>
-      </developers>,
+      <url>https://github.com/chatwork/healthchecks</url>
+      <connection>scm:git:git@github.com:chatwork/healthchecks</connection>
+    </scm>,
     scalaVersion := Version.Scala.head,
     crossScalaVersions := Version.Scala,
     scalacOptions ++= Vector(
