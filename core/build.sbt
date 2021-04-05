@@ -14,6 +14,8 @@ libraryDependencies ++= Seq(
   circe.generic,
   circe.parser
 ) ++ Seq(
+  akka.testkit % "test",
+  akka.streamTestkit % "test",
   akka.httpTestKit % "test",
   scalaTest        % "test"
 )

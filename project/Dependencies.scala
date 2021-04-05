@@ -7,7 +7,7 @@ object Version {
   val akkaHttp = "10.2.4"
   val akkaHttpCirce = "1.36.0"
   val cats = "2.1.0"
-  val scalaTest = "3.0.5"
+  val scalaTest = "3.1.0"
   val paradise = "2.1.1"
 }
 
@@ -23,6 +23,8 @@ object Dependencies {
     val stream = "com.typesafe.akka" %% "akka-stream" % Version.akka
     val http = "com.typesafe.akka" %% "akka-http" % Version.akkaHttp
     val httpCirce = "de.heikoseeberger" %% "akka-http-circe" % Version.akkaHttpCirce
+    val testkit = "com.typesafe.akka" %% "akka-testkit" % Version.akka
+    val streamTestkit = "com.typesafe.akka" %% "akka-stream-testkit" % Version.akka
     val httpTestKit = "com.typesafe.akka" %% "akka-http-testkit" % Version.akkaHttp
   }
 
