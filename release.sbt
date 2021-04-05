@@ -10,7 +10,15 @@ releaseProcess := Seq[ReleaseStep](
   setReleaseVersion, // : ReleaseStep
   commitReleaseVersion, // : ReleaseStep, performs the initial git checks
   tagRelease, // : ReleaseStep
-  publishArtifacts, // : ReleaseStep, checks whether `publishTo` is properly set up
+  ReleaseStep(
+    action = { state =>
+      val extracted = Project extract state
+      extracted.runAggregated(PgpKeys.publishSigned in Global in extracted.get(thisProjectRef), state)
+    },
+    enableCrossBuild = true
+  ),
+  releaseStepCommandAndRemaining("+publishSigned"),
+  releaseStepCommand("sonatypeBundleRelease"),
   setNextVersion, // : ReleaseStep
   commitNextVersion, // : ReleaseStep
   pushChanges // : ReleaseStep, also checks that an upstream branch is properly configured

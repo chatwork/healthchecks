@@ -1,14 +1,12 @@
 # healthchecks
-<!--
-[![Build Status](https://travis-ci.org/everpeace/healthchecks.svg?branch=master)](https://travis-ci.org/everpeace/healthchecks)
--->
+[![CircleCI](https://circleci.com/gh/chatwork/healthcheck.svg?style=svg)](https://circleci.com/gh/chatwork/healthcheck)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 tiny healthcheck library for akka-http with [Kubernetes liveness/readiness probe][k8sprobe] support.
 
 ## Installation
 
-WIP: Not pulibhsed yet
+Current version: `0.5.0`
 
 ```scala
 libraryDependencies += "com.chatwork" %% "healthchecks-core" % <version>
