@@ -6,6 +6,8 @@ libraryDependencies ++= Seq(
   cats.core,
   cats.macros,
   cats.kernel,
+  akka.actor,
+  akka.stream,
   akka.http,
   akka.httpCirce,
   circe.core,

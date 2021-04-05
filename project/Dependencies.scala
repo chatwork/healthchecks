@@ -19,6 +19,8 @@ object Dependencies {
   }
 
   object akka {
+    val actor = "com.typesafe.akka" %% "akka-actor" % Version.akka
+    val stream = "com.typesafe.akka" %% "akka-stream" % Version.akka
     val http = "com.typesafe.akka" %% "akka-http" % Version.akkaHttp
     val httpCirce = "de.heikoseeberger" %% "akka-http-circe" % Version.akkaHttpCirce
     val httpTestKit = "com.typesafe.akka" %% "akka-http-testkit" % Version.akkaHttp
