@@ -1,5 +1,5 @@
 # healthchecks
-[![CircleCI](https://circleci.com/gh/chatwork/healthcheck.svg?style=svg)](https://circleci.com/gh/chatwork/healthcheck)
+[![CircleCI](https://circleci.com/gh/chatwork/healthchecks.svg?style=svg)](https://circleci.com/gh/chatwork/healthchecks)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 tiny healthcheck library for akka-http with [Kubernetes liveness/readiness probe][k8sprobe] support.
