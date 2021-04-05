@@ -8,7 +8,7 @@ object Version {
   val akkaHttpCirce = "1.36.0"
   val cats = "1.2.0"
   val scalaTest = "3.0.5"
-  val paradise = "2.1.0"
+  val paradise = "2.1.1"
 }
 
 object Dependencies {

@@ -48,10 +48,12 @@ object Build extends AutoPlugin {
     scalafmtOnCompile := true,
     scalafmtTestOnCompile := true,
 
-    // macro compiler plugin
-    addCompilerPlugin(
-      "org.scalamacros" % "paradise" % Version.paradise cross CrossVersion.full
-    ),
+    libraryDependencies ++= Def.setting(CrossVersion.partialVersion(scalaVersion.value) match {
+      case Some((2, 12)) =>
+        Seq(compilerPlugin(("org.scalamacros" % "paradise" % Version.paradise).cross(CrossVersion.patch)))
+      case _                              =>
+        Nil
+    }).value,
 
     // Bintray settings
     bintrayPackage := "healthchecks",
