@@ -29,6 +29,12 @@ object Build extends AutoPlugin {
     pomExtra := <scm>
       <url>https://github.com/chatwork/healthchecks</url>
       <connection>scm:git:git@github.com:chatwork/healthchecks</connection>
+      <developers>
+        <developer>
+          <id>exoego</id>
+          <name>TATSUNO Yasuhiro</name>
+        </developer>
+      </developers>
     </scm>,
     scalaVersion := Version.Scala.head,
     crossScalaVersions := Version.Scala,
