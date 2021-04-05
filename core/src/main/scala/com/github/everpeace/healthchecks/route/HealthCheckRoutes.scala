@@ -39,10 +39,9 @@ import io.circe.JsonObject
 import io.circe.generic.JsonCodec
 import io.circe.generic.auto._
 
-import scala.collection.convert.DecorateAsScala
 import scala.concurrent.{ExecutionContext, Future}
 
-object HealthCheckRoutes extends DecorateAsScala {
+object HealthCheckRoutes {
 
   @JsonCodec case class HealthCheckResultJson(
       name: String,
