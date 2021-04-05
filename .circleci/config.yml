@@ -20,8 +20,6 @@ jobs:
       scala_version:
         type: string
     steps:
-      - checkout:
-          path: ~/repo
       - restore_cache:
           key: scala-library-dependencies-{{ checksum "build.sbt" }}-{{ checksum "project/Build.scala" }}-{{ checksum "project/Dependencies.scala" }}
       - run:
