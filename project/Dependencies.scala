@@ -7,7 +7,7 @@ object Version {
   val akkaHttp = "10.2.4"
   val akkaHttpCirce = "1.36.0"
   val cats = "2.1.0"
-  val scalaTest = "3.1.0"
+  val scalaTest = "3.2.7"
   val paradise = "2.1.1"
 }
 
@@ -28,7 +28,8 @@ object Dependencies {
     val httpTestKit = "com.typesafe.akka" %% "akka-http-testkit" % Version.akkaHttp
   }
 
-  val scalaTest = "org.scalatest" %% "scalatest" % Version.scalaTest
+  val scalaTestFunspec = "org.scalatest" %% "scalatest-funspec" % Version.scalaTest
+  val scalaTestMatchersCore = "org.scalatest" %% "scalatest-matchers-core" % Version.scalaTest
 
   object circe {
     val core = "io.circe" %% "circe-core" % Version.circe

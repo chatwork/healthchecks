@@ -32,27 +32,29 @@ import akka.http.scaladsl.model.StatusCodes._
 import akka.http.scaladsl.testkit.ScalatestRouteTest
 import com.github.everpeace.healthchecks.HealthCheck.Severity
 import com.github.everpeace.healthchecks.route.HealthCheckRoutes
-import org.scalatest.{FunSpec, Matchers, OneInstancePerTest}
+import org.scalatest.OneInstancePerTest
+import org.scalatest.funspec.AnyFunSpec
 
-class HealthRoutesTest
-    extends FunSpec
-    with ScalatestRouteTest
-    with Matchers
-    with OneInstancePerTest {
+class HealthRoutesTest extends AnyFunSpec with ScalatestRouteTest with OneInstancePerTest {
 
   describe("HealthCheck route") {
     it("should raise exception when no healthcheck is given.") {
-      val exception = the[IllegalArgumentException] thrownBy HealthCheckRoutes
-        .health()
-      exception.getMessage shouldEqual "requirement failed: checks must not empty."
+      val exception = intercept[IllegalArgumentException] {
+        HealthCheckRoutes.health()
+      }
+      assert(exception.getMessage === "requirement failed: checks must not empty.")
     }
 
     it("should raise exception when given healthchecks have same names") {
-      val exception = the[IllegalArgumentException] thrownBy HealthCheckRoutes.health(
-        healthCheck("test")(healthy),
-        healthCheck("test")(healthy)
+      val exception = intercept[IllegalArgumentException] {
+        HealthCheckRoutes.health(
+          healthCheck("test")(healthy),
+          healthCheck("test")(healthy)
+        )
+      }
+      assert(
+        exception.getMessage === "requirement failed: HealthCheck name should be unique (given HealthCheck names = [test,test])."
       )
-      exception.getMessage shouldEqual "requirement failed: HealthCheck name should be unique (given HealthCheck names = [test,test])."
     }
 
     it("should return correct healthy response when all healthchecks are healthy.") {
@@ -60,14 +62,15 @@ class HealthRoutesTest
       val ok2 = healthCheck("test2")(healthy)
 
       Get("/health") ~> HealthCheckRoutes.health(ok1, ok2) ~> check {
-        status shouldEqual OK
-        responseAs[String] shouldEqual "{}"
+        assert(status === OK)
+        assert(responseAs[String] === "{}")
       }
 
       Get("/health?full=true") ~> HealthCheckRoutes.health(ok1, ok2) ~> check {
-        status shouldEqual OK
-        responseAs[String] shouldEqual
-          """
+        assert(status === OK)
+        assert(
+          responseAs[String] ===
+            """
             |{
             |  "status": "healthy",
             |  "check_results": [
@@ -76,6 +79,7 @@ class HealthRoutesTest
             |  ]
             |}
           """.stripMargin.replaceAll("\n", "").replaceAll(" ", "")
+        )
       }
     }
 
@@ -87,14 +91,15 @@ class HealthRoutesTest
         healthCheck("test2", Severity.NonFatal)(unhealthy("error"))
 
       Get("/health") ~> HealthCheckRoutes.health(ok1, failedButNonFatal) ~> check {
-        status shouldEqual OK
-        responseAs[String] shouldEqual "{}"
+        assert(status === OK)
+        assert(responseAs[String] === "{}")
       }
 
       Get("/health?full=true") ~> HealthCheckRoutes.health(ok1, failedButNonFatal) ~> check {
-        status shouldEqual OK
-        responseAs[String] shouldEqual
-          """
+        assert(status === OK)
+        assert(
+          responseAs[String] ===
+            """
             |{
             |  "status": "healthy",
             |  "check_results": [
@@ -103,6 +108,7 @@ class HealthRoutesTest
             |  ]
             |}
           """.stripMargin.replaceAll("\n", "").replaceAll(" ", "")
+        )
       }
     }
 
@@ -115,8 +121,8 @@ class HealthRoutesTest
       val failedFatal       = healthCheck("test3")(throw new Exception("exception"))
 
       Get("/health") ~> HealthCheckRoutes.health(ok, failedButNonFatal, failedFatal) ~> check {
-        status shouldEqual ServiceUnavailable
-        responseAs[String] shouldEqual "{}"
+        assert(status === ServiceUnavailable)
+        assert(responseAs[String] === "{}")
       }
 
       Get("/health?full=true") ~> HealthCheckRoutes.health(
@@ -124,9 +130,10 @@ class HealthRoutesTest
         failedButNonFatal,
         failedFatal
       ) ~> check {
-        status shouldEqual ServiceUnavailable
-        responseAs[String] shouldEqual
-          """
+        assert(status === ServiceUnavailable)
+        assert(
+          responseAs[String] ===
+            """
             |{
             |  "status": "unhealthy",
             |  "check_results": [
@@ -136,6 +143,7 @@ class HealthRoutesTest
             |  ]
             |}
           """.stripMargin.replaceAll("\n", "").replaceAll(" ", "")
+        )
       }
     }
   }
