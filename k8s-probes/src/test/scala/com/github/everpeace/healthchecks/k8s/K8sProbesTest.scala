@@ -25,7 +25,6 @@ import akka.actor.ActorSystem
 import akka.http.scaladsl.Http
 import akka.http.scaladsl.model.{HttpRequest, StatusCodes}
 import com.github.everpeace.healthchecks._
-import com.github.everpeace.healthchecks.k8s._
 import org.scalatest.funspec.AnyFunSpec
 
 import scala.concurrent.duration._
