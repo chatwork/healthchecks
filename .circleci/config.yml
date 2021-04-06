@@ -4,11 +4,15 @@ workflows:
    build_and_test:
      jobs:
        - scala:
-           name: Scala 2.12.x
+           name: Scala 2.12.x with Akka 2.5.x
            scala_version: 2.12.13
        - scala:
-           name: Scala 2.13.x
+           name: Scala 2.13.x with Akka 2.5.x
            scala_version: 2.13.5
+       - scala:
+           name: Scala 2.13.x with Akka 2.6.x
+           scala_version: 2.13.5
+           akka_version: 2.6.13
 
 jobs:
   scala:
@@ -19,6 +23,9 @@ jobs:
     parameters:
       scala_version:
         type: string
+      akka_version:
+        type: string
+        default: 2.5.32
     steps:
       - checkout
       - restore_cache:

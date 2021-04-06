@@ -6,16 +6,15 @@ libraryDependencies ++= Seq(
   cats.core,
   cats.macros,
   cats.kernel,
-  akka.actor,
-  akka.stream,
-  akka.http,
-  akka.httpCirce,
+  akka.actor % Provided,
+  akka.stream % Provided,
+  akka.http % Provided,
+  akka.httpCirce % Provided,
   circe.core,
   circe.generic,
-  circe.parser
-) ++ Seq(
-  akka.testkit % "test",
-  akka.streamTestkit % "test",
-  akka.httpTestKit % "test",
-  scalaTest        % "test"
+  circe.parser,
+  akka.testkit % Test,
+  akka.streamTestkit % Test,
+  akka.httpTestKit % Test,
+  scalaTest        % Test
 )

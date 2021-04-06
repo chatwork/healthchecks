@@ -3,7 +3,7 @@ import sbt._
 object Version {
   val Scala = Seq("2.12.13", "2.13.5")
   val circe = "0.13.0"
-  val akka = "2.5.32"
+  val akka = sys.env.getOrElse("AKKA_VERSION", "2.5.32")
   val akkaHttp = "10.2.4"
   val akkaHttpCirce = "1.36.0"
   val cats = "2.1.0"
