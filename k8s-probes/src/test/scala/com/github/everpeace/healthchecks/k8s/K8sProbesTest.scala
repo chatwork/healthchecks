@@ -19,46 +19,45 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.chatwork.healthcheck.k8s
+package com.github.everpeace.healthchecks.k8s
 
 import akka.actor.ActorSystem
 import akka.http.scaladsl.Http
 import akka.http.scaladsl.model.{HttpRequest, StatusCodes}
-import akka.stream.ActorMaterializer
 import com.github.everpeace.healthchecks._
 import com.github.everpeace.healthchecks.k8s._
-import org.scalatest._
+import org.scalatest.funspec.AnyFunSpec
 
 import scala.concurrent.duration._
 import scala.concurrent.{Await, Future}
 
-class K8sProbesTest extends FreeSpec with Matchers {
+class K8sProbesTest extends AnyFunSpec {
 
-  private def fixture(probe: K8sProbe, probes: K8sProbe*) = new {}
-
-  "K8sProbes" - {
-    "should start successfully and return correct response" in {
+  describe("K8sProbes") {
+    it("should start successfully and return correct response") {
       implicit val system = ActorSystem()
-      implicit val am     = ActorMaterializer()
       implicit val ec     = system.dispatcher
 
-      val probeBinding = bindAndHandleProbes(
-        readinessProbe(healthCheck("readiness_check")(healthy)),
-        livenessProbe(asyncHealthCheck("liveness_check")(Future(healthy)))
-      )
+      try {
+        bindAndHandleProbes(
+          readinessProbe(healthCheck("readiness_check")(healthy)),
+          livenessProbe(asyncHealthCheck("liveness_check")(Future(healthy)))
+        )
 
-      def requestToLivenessProbe  =
-        Http().singleRequest(HttpRequest(uri = "http://localhost:8086/live"))
-      def requestToReadinessProbe =
-        Http().singleRequest(HttpRequest(uri = "http://localhost:8086/ready"))
+        def requestToLivenessProbe =
+          Http().singleRequest(HttpRequest(uri = "http://localhost:8086/live"))
 
-      val livenessResponse = Await.result(requestToLivenessProbe, 10 seconds)
-      val redinessResponse = Await.result(requestToReadinessProbe, 10 seconds)
+        def requestToReadinessProbe =
+          Http().singleRequest(HttpRequest(uri = "http://localhost:8086/ready"))
 
-      livenessResponse.status shouldEqual StatusCodes.OK
-      redinessResponse.status shouldEqual StatusCodes.OK
+        val livenessResponse = Await.result(requestToLivenessProbe, 10 seconds)
+        val redinessResponse = Await.result(requestToReadinessProbe, 10 seconds)
 
-      system.terminate()
+        assert(livenessResponse.status === StatusCodes.OK)
+        assert(redinessResponse.status === StatusCodes.OK)
+      } finally {
+        system.terminate()
+      }
     }
   }
 }

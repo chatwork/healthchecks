@@ -10,5 +10,5 @@ libraryDependencies ++= Seq(
   akka.testkit % Test,
   akka.streamTestkit % Test,
   akka.httpTestKit % Test,
-  scalaTest        % Test
+  scalaTestFunspec % Test
 )
