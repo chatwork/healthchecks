@@ -24,7 +24,6 @@ package com.chatwork.healthcheck.k8s
 import akka.actor.ActorSystem
 import akka.http.scaladsl.Http
 import akka.http.scaladsl.model.{HttpRequest, StatusCodes}
-import akka.stream.ActorMaterializer
 import com.github.everpeace.healthchecks._
 import com.github.everpeace.healthchecks.k8s._
 import org.scalatest.funspec.AnyFunSpec
@@ -34,16 +33,13 @@ import scala.concurrent.{Await, Future}
 
 class K8sProbesTest extends AnyFunSpec {
 
-  private def fixture(probe: K8sProbe, probes: K8sProbe*) = new {}
-
   describe("K8sProbes") {
     it("should start successfully and return correct response") {
       implicit val system = ActorSystem()
-      implicit val am     = ActorMaterializer()
       implicit val ec     = system.dispatcher
 
       try {
-        val probeBinding = bindAndHandleProbes(
+        bindAndHandleProbes(
           readinessProbe(healthCheck("readiness_check")(healthy)),
           livenessProbe(asyncHealthCheck("liveness_check")(Future(healthy)))
         )
