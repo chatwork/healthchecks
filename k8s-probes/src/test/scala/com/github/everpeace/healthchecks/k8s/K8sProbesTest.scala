@@ -19,7 +19,7 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.chatwork.healthcheck.k8s
+package com.github.everpeace.healthchecks.k8s
 
 import akka.actor.ActorSystem
 import akka.http.scaladsl.Http
