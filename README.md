@@ -6,8 +6,6 @@ tiny healthcheck library for akka-http with [Kubernetes liveness/readiness probe
 
 ## Installation
 
-Current version: `0.5.0`
-
 ```scala
 libraryDependencies += "com.chatwork" %% "healthchecks-core" % <version>
   
